@@ -1,6 +1,8 @@
 import sqlite3
 
 
+# 基本实现曾删改查
+# 添加学生函数
 def insert_student(name, major, year):
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
@@ -9,6 +11,7 @@ def insert_student(name, major, year):
     conn.close()
 
 
+# 更新学生函数
 def update_student(student_id, name, major, year):
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
@@ -17,6 +20,7 @@ def update_student(student_id, name, major, year):
     conn.close()
 
 
+# 删除学生函数
 def delete_student(student_id):
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
@@ -25,6 +29,7 @@ def delete_student(student_id):
     conn.close()
 
 
+# 查询所有学生
 def get_all_students():
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()

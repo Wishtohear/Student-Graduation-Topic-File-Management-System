@@ -1,8 +1,9 @@
-# 注册普通用户
 import sqlite3
 import PySimpleGUI as sg
 
 
+# 用户登录的一些操作逻辑
+# 注册普通用户
 def register_user(username, password):
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()

@@ -1,0 +1,4 @@
+sqlite3
+PySimpleGUI
+os.path
+csv

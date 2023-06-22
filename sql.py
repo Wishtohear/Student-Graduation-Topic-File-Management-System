@@ -1,6 +1,13 @@
+import csv
 import sqlite3
+import PySimpleGUI as sg
+
+from student import get_all_students
+from topic import get_all_topics
 
 
+# 数据库操作等函数
+# 新建数据库文件，初始化程序数据库
 def create_tables():
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
@@ -40,3 +47,21 @@ def create_tables():
     cursor.execute("INSERT INTO users (username, password, userid) VALUES (feng, fengyushun, 1)")
     conn.commit()
     conn.close()
+
+
+# 数据库导出函数
+def export_data_to_csv():
+    students = get_all_students()
+    topics = get_all_topics()
+
+    with open('students.csv', 'w', newline='', encoding='utf-8') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(['学生ID', '名字', '专业', '毕业年份'])
+        writer.writerows(students)
+
+    with open('topics.csv', 'w', newline='', encoding='utf-8') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(['选题ID', '选题', '论文标题', '学生ID'])
+        writer.writerows(topics)
+
+    sg.popup('数据保存为 students.csv 和 topics.csv 成功.')

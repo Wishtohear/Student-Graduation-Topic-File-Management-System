@@ -1,13 +1,13 @@
-import csv
 import PySimpleGUI as sg  # GUI库，pip安装一下
 import os.path
 
-from sql import create_tables
+from sql import create_tables, export_data_to_csv
 from student import insert_student, update_student, delete_student, get_all_students
-from topic import update_topic, delete_topic, get_all_topics
+from topic import update_topic, delete_topic, get_all_topics, insert_topic
 from user import register_user, register_admin, validate_user
 
 
+# UI界面操作的一些函数
 def input_student_info():
     layout = [
         [sg.Text('名字:'), sg.InputText()],
@@ -158,23 +158,6 @@ def query_topic_info():
         window.close()
     else:
         sg.popup('没有选题信息.')
-
-
-def export_data_to_csv():
-    students = get_all_students()
-    topics = get_all_topics()
-
-    with open('students.csv', 'w', newline='', encoding='utf-8') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(['学生ID', '名字', '专业', '毕业年份'])
-        writer.writerows(students)
-
-    with open('topics.csv', 'w', newline='', encoding='utf-8') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(['选题ID', '选题', '论文标题', '学生ID'])
-        writer.writerows(topics)
-
-    sg.popup('数据保存为 students.csv 和 topics.csv 成功.')
 
 
 def register_ui():

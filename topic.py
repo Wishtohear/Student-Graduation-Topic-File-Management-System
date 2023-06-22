@@ -1,6 +1,8 @@
 import sqlite3
 
 
+# 基本实现曾删改查
+# 添加课题函数
 def insert_topic(title, description, student_id, teacher):
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
@@ -10,6 +12,7 @@ def insert_topic(title, description, student_id, teacher):
     conn.close()
 
 
+# 更新课题函数
 def update_topic(topic_id, title, description, student_id, teacher):
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
@@ -19,6 +22,7 @@ def update_topic(topic_id, title, description, student_id, teacher):
     conn.close()
 
 
+# 删除课题函数
 def delete_topic(topic_id):
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
@@ -27,6 +31,7 @@ def delete_topic(topic_id):
     conn.close()
 
 
+# 查询所以课题函数
 def get_all_topics():
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
