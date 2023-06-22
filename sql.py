@@ -17,6 +17,7 @@ def create_tables():
         sid INTEGER PRIMARY KEY,
         name TEXT NOT NULL,
         major TEXT NOT NULL,
+        year INTEGER DEFAULT 2023,
         title_id INTEGER,
         state INTEGER DEFAULT 0,
         FOREIGN KEY (title_id) REFERENCES thesis_topics (tid)

@@ -240,12 +240,12 @@ def main():
             break
         elif event == "登录":
             login_result = validate_user(values["USERNAME"], values["PASSWORD"])
-            if login_result == 1:
+            if login_result == 2:
                 sg.popup("管理员登录成功！")
                 window.close()
                 ad_main()
                 break
-            elif login_result == 2:
+            elif login_result == 0:
                 sg.popup("用户登录成功！")
                 window.close()
                 us_main()
