@@ -37,3 +37,20 @@ def get_all_students():
     students = cursor.fetchall()
     conn.close()
     return students
+
+
+def insert_student_my(name, major, year):
+    conn = sqlite3.connect('graduation_topics.db')
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO students (name, major, year) VALUES (?, ?, ?)", (name, major, year))
+    conn.commit()
+    conn.close()
+
+
+# 绑定学生
+def bind_student(name, username):
+    conn = sqlite3.connect('graduation_topics.db')
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO student_user_relation (name, username) VALUES (?, ?)", (name, username))
+    conn.commit()
+    conn.close()

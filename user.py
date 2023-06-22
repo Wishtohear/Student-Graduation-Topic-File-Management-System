@@ -34,7 +34,7 @@ def validate_user(username, password):
     cursor.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
     result = cursor.fetchone()
     conn.close()
-    if result:
-        return result[0] + 1
-    else:
+    if result is None:
         return 0
+    else:
+        return result[2] + 1

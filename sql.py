@@ -18,7 +18,7 @@ def create_tables():
         name TEXT NOT NULL,
         major TEXT NOT NULL,
         title_id INTEGER,
-        state TEXT NULL,
+        state INTEGER DEFAULT 0,
         FOREIGN KEY (title_id) REFERENCES thesis_topics (tid)
     )
     ''')
@@ -41,6 +41,18 @@ def create_tables():
     userid  INTEGER
     )
     ''')
+    # 创建账户学生关系表
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS student_user_relation (
+    student_id INTEGER,
+    user_id TEXT,
+    name TEXT,
+    username TEXT,
+    FOREIGN KEY (student_id) REFERENCES students (sid),
+    FOREIGN KEY (username) REFERENCES users (username),
+    FOREIGN KEY (name) REFERENCES students (name),
+    FOREIGN KEY (user_id) REFERENCES users (userid)
+    )''')
     # 初始一个超级管理员
     cursor.execute("INSERT INTO users (username, password, userid) VALUES (admin, admin123, 0)")
     # 初始一个普通用户
