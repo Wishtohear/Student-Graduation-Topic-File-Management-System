@@ -1,12 +1,13 @@
 import sqlite3
 
 
+# 课题类函数
 # 基本实现曾删改查
 # 添加课题函数
 def insert_topic(title, description, student_id, teacher):
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO topics (title, description, student_id, teacher) VALUES (?, ?, ?, ?)",
+    cursor.execute("INSERT INTO topics (title_name, description, student_id, teacher) VALUES (?, ?, ?, ?)",
                    (title, description, student_id, teacher))
     conn.commit()
     conn.close()

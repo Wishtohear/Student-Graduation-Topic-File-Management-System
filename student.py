@@ -1,6 +1,7 @@
 import sqlite3
 
 
+# 学生类函数
 # 基本实现曾删改查
 # 添加学生函数
 def insert_student(name, major, year):
@@ -39,12 +40,17 @@ def get_all_students():
     return students
 
 
-def insert_student_my(name, major, year):
+def get_student_me(name):
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO students (name, major, year) VALUES (?, ?, ?)", (name, major, year))
+    cursor.execute("SELECT * FROM students WHERE name = '?'"), name
+    result1 = cursor.fetchall()
+    cursor.execute("SELECT * FROM topics WHERE student_id = '?'"), result1[4]
+    result2 = cursor.fetchall()
+    var = result1 + result2
     conn.commit()
     conn.close()
+    return var
 
 
 # 绑定学生

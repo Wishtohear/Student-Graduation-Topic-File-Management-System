@@ -55,9 +55,10 @@ def create_tables():
     FOREIGN KEY (user_id) REFERENCES users (userid)
     )''')
     # 初始一个超级管理员
-    cursor.execute("INSERT INTO users (username, password, userid) VALUES (admin, admin123, 0)")
+    cursor.execute("INSERT INTO users (username, password, userid) VALUES ('admin', 'admin123', 0)")
+
     # 初始一个普通用户
-    cursor.execute("INSERT INTO users (username, password, userid) VALUES (feng, fengyushun, 1)")
+    cursor.execute("INSERT INTO users (username, password, userid) VALUES ('feng', 'fengyushun', 1)")
     conn.commit()
     conn.close()
 
@@ -78,3 +79,17 @@ def export_data_to_csv():
         writer.writerows(topics)
 
     sg.popup('数据保存为 students.csv 和 topics.csv 成功.')
+
+
+# 添加测试数据
+def test_data():
+    conn = sqlite3.connect('graduation_topics.db')
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO students (name, major, year) VALUES ('张三', '法学', 2022)")
+    cursor.execute("INSERT INTO students (name, major, year) VALUES ('李四', '计算机网络', 2022)")
+    cursor.execute("INSERT INTO students (name, major, year) VALUES ('王五', '机电一体化', 2022)")
+    cursor.execute("INSERT INTO topics (title, description, teacher) VALUES ('论怎么实现完美犯罪', '在法律边缘疯狂试探', '罗翔')")
+    cursor.execute("INSERT INTO topics (title, description, student_id, teacher) VALUES (?, ?, ?, ?)")
+    cursor.execute("INSERT INTO topics (title, description, student_id, teacher) VALUES (?, ?, ?, ?)")
+    conn.commit()
+    conn.close()
