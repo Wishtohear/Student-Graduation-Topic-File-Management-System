@@ -1,5 +1,4 @@
 import PySimpleGUI as sg  # GUI库，pip安装一下
-import os.path
 
 from student import insert_student, get_all_students, get_student_me, bind_student
 
@@ -64,7 +63,7 @@ def get_student_info_next():
         layout = [
             [sg.Text('ID\t姓名\t专业\t毕业年份\t课题状态')],
             [sg.Multiline('\n'.join([
-                f'{s[0]}\t{s[1]}\t{s[2]}\t{s[3]}\t{"已完成" if s[4] == 0 else "已做完" if s[4] == 1 else "在修改" if s[4] == 2 else "未提交"}'
+                f'{s[0]}\t{s[1]}\t{s[2]}\t{s[3]}\t{s[4]}\t{s[5]}\t{s[6]}\t{s[7]}'
                 for s in students]), size=(50, 10),
                 disabled=True)],
             [sg.Button('看完了')]
@@ -77,6 +76,7 @@ def get_student_info_next():
         window.close()
     else:
         sg.popup('没有学生信息.')
+
 
 def query_student_info():
     students = get_all_students()
@@ -97,4 +97,3 @@ def query_student_info():
         window.close()
     else:
         sg.popup('没有学生信息.')
-
