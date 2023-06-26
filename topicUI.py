@@ -1,15 +1,14 @@
 import PySimpleGUI as sg  # GUI库，pip安装一下
 
-from student import update_student, delete_student
 from topic import insert_topic, update_topic, delete_topic, bind_topic, get_all_topics
 
 
 def input_topic_info():
     layout = [
-        [sg.Text('论文标题:'), sg.InputText()],
-        [sg.Text('论文描述:'), sg.InputText()],
-        [sg.Text('学生ID:'), sg.InputText()],
-        [sg.Text('指导老师'), sg.InputText()],
+        [sg.Text('论文标题:'), sg.InputText(size=(17, 1))],
+        [sg.Text('论文描述:'), sg.InputText(size=(17, 1))],
+        [sg.Text('学生ID:'), sg.InputText(size=(17, 1))],
+        [sg.Text('指导老师'), sg.InputText(size=(17, 1))],
         [sg.Button('确定'), sg.Button('退出')]
     ]
     window = sg.Window('录入论文信息', layout)
@@ -20,26 +19,6 @@ def input_topic_info():
         elif event == '确定':
             insert_topic(values[0], values[1], int(values[2]), values[3])
             sg.popup('录入论文信息成功.')
-            break
-    window.close()
-
-
-def update_student_info():
-    layout = [
-        [sg.Text('学生ID:'), sg.InputText()],
-        [sg.Text('名字:'), sg.InputText()],
-        [sg.Text('专业:'), sg.InputText()],
-        [sg.Text('毕业年份:'), sg.InputText()],
-        [sg.Button('确定'), sg.Button('退出')]
-    ]
-    window = sg.Window('更改学生信息', layout)
-    while True:
-        event, values = window.read()
-        if event == sg.WIN_CLOSED or event == '退出':
-            break
-        elif event == '确定':
-            update_student(int(values[0]), values[1], values[2], values[3])
-            sg.popup('学生信息更改成功.')
             break
     window.close()
 
@@ -61,23 +40,6 @@ def update_topic_info():
         elif event == '确定':
             update_topic(int(values[0]), values[1], values[2], int(values[3]), values[4])
             sg.popup('课题更新成功.')
-            break
-    window.close()
-
-
-def delete_student_info():
-    layout = [
-        [sg.Text('学生ID:'), sg.InputText()],
-        [sg.Button('确定'), sg.Button('退出')]
-    ]
-    window = sg.Window('删除学生', layout)
-    while True:
-        event, values = window.read()
-        if event == sg.WIN_CLOSED or event == '退出':
-            break
-        elif event == '确定':
-            delete_student(int(values[0]))
-            sg.popup('学生删除成功.')
             break
     window.close()
 

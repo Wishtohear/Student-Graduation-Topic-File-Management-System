@@ -14,10 +14,11 @@ def create_tables():
     # 创建学生表
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS students (
-        sid INTEGER PRIMARY KEY,
+        sid INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         major TEXT NOT NULL,
         year INTEGER DEFAULT 2023,
+        six INTEGER DEFAULT 0,
         title_id INTEGER,
         state INTEGER DEFAULT 0,
         FOREIGN KEY (title_id) REFERENCES thesis_topics (tid)
@@ -49,10 +50,12 @@ def create_tables():
     user_id TEXT,
     name TEXT,
     username TEXT,
+    topic_id TEXT,
     FOREIGN KEY (student_id) REFERENCES students (sid),
     FOREIGN KEY (username) REFERENCES users (username),
     FOREIGN KEY (name) REFERENCES students (name),
-    FOREIGN KEY (user_id) REFERENCES users (userid)
+    FOREIGN KEY (user_id) REFERENCES users (userid),
+    FOREIGN KEY (topic_id) REFERENCES topics (tid)
     )''')
     # 初始一个超级管理员
     cursor.execute("INSERT INTO users (username, password, userid) VALUES ('admin', 'admin123', 0)")
@@ -85,11 +88,41 @@ def export_data_to_csv():
 def test_data():
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO students (name, major, year) VALUES ('张三', '法学', 2022)")
-    cursor.execute("INSERT INTO students (name, major, year) VALUES ('李四', '计算机网络', 2022)")
-    cursor.execute("INSERT INTO students (name, major, year) VALUES ('王五', '机电一体化', 2022)")
-    cursor.execute("INSERT INTO topics (title, description, teacher) VALUES ('论怎么实现完美犯罪', '在法律边缘疯狂试探', '罗翔')")
-    cursor.execute("INSERT INTO topics (title, description, student_id, teacher) VALUES (?, ?, ?, ?)")
-    cursor.execute("INSERT INTO topics (title, description, student_id, teacher) VALUES (?, ?, ?, ?)")
+    cursor.execute(
+        "INSERT INTO students (name, major, year) VALUES ('张三', '法学', 2022)"
+    )
+    cursor.execute(
+        "INSERT INTO students (name, major, year) VALUES ('李四', '计算机网络', 2022)"
+    )
+    cursor.execute(
+        "INSERT INTO students (name, major, year) VALUES ('王五', '机电一体化', 2022)"
+    )
+    cursor.execute(
+        "INSERT INTO students (name, major, year) VALUES ('周瑜', '军事理论', 2022)"
+    )
+    cursor.execute(
+        "INSERT INTO students (name, major, year) VALUES ('林冲', '计算机网络', 2022)"
+    )
+    cursor.execute(
+        "INSERT INTO students (name, major, year) VALUES ('武松', '中华武学', 2022)"
+    )
+    cursor.execute(
+        "INSERT INTO topics (title_name, description, teacher) VALUES ('论怎么实现完美犯罪', '在法律边缘疯狂试探', '罗翔')"
+                   )
+    cursor.execute(
+        "INSERT INTO topics (title_name, description, teacher) VALUES ('交换机的配置与维护', '交换机的一些实际操作和维护方法', '梅艳芳')"
+                   )
+    cursor.execute(
+        "INSERT INTO topics (title_name, description, teacher) VALUES ('汽车的保养技术', '汽车到多少使用公里就得保养', '懂车帝')"
+                   )
+    cursor.execute(
+        "INSERT INTO topics (title_name, description, teacher) VALUES ('八卦阵的布局', '怎么布局先师的八卦阵', '诸葛亮')"
+                   )
+    cursor.execute(
+        "INSERT INTO topics (title_name, description, teacher) VALUES ('马车的车轮距离研究', '由于大秦的马路很烂需要把车轮距离制定标准', '秦始皇')"
+    )
+    cursor.execute(
+        "INSERT INTO topics (title_name, description, teacher) VALUES ('上山打老虎', '喝点酒上景阳冈山打上的老虎', '程咬金')"
+    )
     conn.commit()
     conn.close()

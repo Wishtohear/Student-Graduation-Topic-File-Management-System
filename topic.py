@@ -17,7 +17,7 @@ def insert_topic(title, description, student_id, teacher):
 def update_topic(topic_id, title, description, student_id, teacher):
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
-    cursor.execute("UPDATE topics SET title=?, description=?, student_id=? topic_id=?, teacher=?",
+    cursor.execute("UPDATE topics SET title_name=?, description=?, student_id=? topic_id=?, teacher=?",
                    (title, description, student_id, topic_id, teacher))
     conn.commit()
     conn.close()

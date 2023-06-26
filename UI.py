@@ -1,10 +1,10 @@
 import PySimpleGUI as sg  # GUI库，pip安装一下
 import os.path
 
-from sql import create_tables, export_data_to_csv
-from studentUI import input_student_info, query_student_info, bind_student_info, get_student_info
-from topicUI import input_topic_info, update_student_info, update_topic_info, delete_student_info, delete_topic_info, \
-    query_topic_info, bind_topic_info
+from sql import create_tables, export_data_to_csv, test_data
+from studentUI import input_student_info, query_student_info, bind_student_info, update_student_info, \
+    delete_student_info
+from topicUI import input_topic_info, update_topic_info, delete_topic_info, bind_topic_info, query_topic_info
 from user import register_user, register_admin, validate_user
 
 
@@ -13,8 +13,9 @@ def register_ui():
     layout = [
         [sg.Text('           欢迎使用毕业选题管理系统          ')],
         [sg.Text('                  用户注册                ')],
-        [sg.Text('请输入用户名'), sg.InputText(key="USERNAME")],
-        [sg.Text('请输入密码'), sg.InputText(password_char="*", key="PASSWORD")],
+        [sg.Text('请输入用户名'), sg.InputText(size=(15, 1), key="USERNAME")],
+        [sg.Text('请输入密码'), sg.InputText(size=(17, 1), password_char="*", key="PASSWORD")],
+        [sg.Text('请确认密码'), sg.InputText(size=(17, 1), password_char="*", key="PASSWORDOK")],
         [sg.Button('注册用户'), sg.Button('注册管理员')],
         [sg.Text('有用户？立即登录！'), sg.Button('登录')]
     ]
@@ -27,9 +28,20 @@ def register_ui():
             main()
             window.close()
         elif event == "注册用户":
-            register_user(values["USERNAME"], values["PASSWORD"])
+            if values["PASSWORD"] == values["PASSWORDOK"]:
+                register_user(values["USERNAME"], values["PASSWORD"])
+            else:
+                sg.popup('两次密码不对，你在搞什么')
+                break
+
         elif event == "注册管理员":
-            register_admin(values["USERNAME"], values["PASSWORD"])
+            if values["PASSWORD"] == values["PASSWORDOK"]:
+                register_admin(values["USERNAME"], values["PASSWORD"])
+            else:
+                sg.popup('两次密码不对，你在搞什么')
+                break
+        window.close()
+        main()
 
 
 def main():
@@ -39,9 +51,9 @@ def main():
     layout = [
         [sg.Text('           欢迎使用毕业选题管理系统          ')],
         [sg.Text('                  用户登录                ')],
-        [sg.Text('请输入用户名'), sg.InputText(key="USERNAME")],
-        [sg.Text('请输入密码'), sg.InputText(password_char="*", key="PASSWORD")],
-        [sg.Button('登录'), sg.Button('取消')],
+        [sg.Text('请输入用户名：'), sg.InputText(size=(15, 1), key="USERNAME")],
+        [sg.Text('请输入密码：'), sg.InputText(size=(17, 1), password_char="*", key="PASSWORD")],
+        [sg.Button('登录'), sg.Button('取消'), sg.Button('导入测试数据')],
         [sg.Text('没有用户？立即注册！'), sg.Button('注册')]
     ]
     window = sg.Window('登录毕业选题管理系统', layout)
@@ -66,6 +78,9 @@ def main():
         elif event == "注册":
             register_ui()
             window.close()
+        elif event == "导入测试数据":
+            test_data()
+            sg.popup('数据导入成功')
 
 
 def ad_main():
@@ -114,7 +129,6 @@ def us_main():
         [sg.Button('更新学生信息'), sg.Button('更新课题信息')],
         [sg.Button('论文状态提交'), sg.Button('论文状态修改')],
         [sg.Button('查询学生信息'), sg.Button('查询课题信息')],
-        [sg.Button('查询学生和课题的信息')],
         [sg.Button('保存数据'), sg.Button('退出登录')],
         [sg.Text('             毕业设计，仅供学习')]
     ]
@@ -141,9 +155,7 @@ def us_main():
         elif event == '查询课题信息':
             query_topic_info()
         elif event == '保存数据':
-            export_data_to_csv()
-        elif event == '查询学生和课题的信息':
-            get_student_info()
+            sg.popup("不是管理员怎么导出？")
 
     window.close()
     main()

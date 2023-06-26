@@ -3,4 +3,20 @@
 ```bash
 pip install -r requirements.txt
 ```
-sql表的结构
+## 项目结构
+
+sql.py，数据库的一些操作函数
+
+student.py，学生的一些操作函数
+
+studentUI.py学生的一些UI函数
+
+topic.py，课题的一些操作函数
+
+topicUI.py，课题的一些UI函数
+
+UI.py，主界面函数
+
+user.py，用户登录的函数
+
+main.py，启动程序的主函数

@@ -1,22 +1,32 @@
 import sqlite3
 
 
+# 性别转换函数
+def gender_to_number(six):
+    if six == "男":
+        return 0
+    else:
+        return 1
+
+
 # 学生类函数
 # 基本实现曾删改查
 # 添加学生函数
-def insert_student(name, major, year):
+def insert_student(name, major, year, six):
+    six_number = gender_to_number(six)
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO students (name, major, year) VALUES (?, ?, ?)", (name, major, year))
+    cursor.execute("INSERT INTO students (name, major, year, six) VALUES (?, ?, ?, ?)", (name, major, year, six_number))
     conn.commit()
     conn.close()
 
 
 # 更新学生函数
-def update_student(student_id, name, major, year):
+def update_student(student_id, name, major, year, six):
+    six_number = gender_to_number(six)
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
-    cursor.execute("UPDATE students SET name=?, major=?, year=? WHERE id=?", (name, major, year, student_id))
+    cursor.execute("UPDATE students SET name=?, major=?, year=? WHERE id=?, six=?", (name, major, year, student_id, six_number))
     conn.commit()
     conn.close()
 
