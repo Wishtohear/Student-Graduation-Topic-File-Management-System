@@ -25,11 +25,11 @@ def input_topic_info():
 
 def update_topic_info():
     layout = [
-        [sg.Text('选题 ID:'), sg.InputText()],
-        [sg.Text('论文标题:'), sg.InputText()],
-        [sg.Text('论文描述:'), sg.InputText()],
-        [sg.Text('学生ID:'), sg.InputText()],
-        [sg.Text('指导老师'), sg.InputText()],
+        [sg.Text('选题 ID:'), sg.InputText(size=(17, 1))],
+        [sg.Text('论文标题:'), sg.InputText(size=(17, 1))],
+        [sg.Text('论文描述:'), sg.InputText(size=(17, 1))],
+        [sg.Text('学生ID:'), sg.InputText(size=(17, 1))],
+        [sg.Text('指导老师'), sg.InputText(size=(17, 1))],
         [sg.Button('确定'), sg.Button('退出')]
     ]
     window = sg.Window('更新课题信息', layout)
@@ -46,7 +46,7 @@ def update_topic_info():
 
 def delete_topic_info():
     layout = [
-        [sg.Text('选题 ID:'), sg.InputText()],
+        [sg.Text('选题 ID:'), sg.InputText(size=(17, 1))],
         [sg.Button('确定'), sg.Button('退出')]
     ]
     window = sg.Window('删除选题', layout)
@@ -63,8 +63,8 @@ def delete_topic_info():
 
 def bind_topic_info():
     layout = [
-        [sg.Text('课题id:'), sg.InputText()],
-        [sg.Text('学生id:'), sg.InputText()],
+        [sg.Text('课题id:'), sg.InputText(size=(17, 1))],
+        [sg.Text('学生id:'), sg.InputText(size=(17, 1))],
         [sg.Button('确定'), sg.Button('退出')]
     ]
     window = sg.Window('输入信息', layout)
@@ -84,7 +84,8 @@ def query_topic_info():
     if topics:
         layout = [
             [sg.Text('选题ID\t选题标题\t论文标题\t指导老师\t学生ID')],
-            [sg.Multiline('\n'.join([f'{t[0]}\t{t[1]}\t{t[2]}\t{t[3]}\t{t[4]}' for t in topics]), size=(50, 10),
+            [sg.Multiline('\n'.join([f'{t[0]}\t{t[1]}\t{t[2]}\t{t[3]}\t'
+                                     f'{t[4]}\t{"未绑定" if t[4] is None else t[4]}' for t in topics]), size=(70, 10),
                           disabled=True)],
             [sg.Button('看完了')]
         ]

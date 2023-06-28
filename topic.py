@@ -46,6 +46,14 @@ def get_all_topics():
 def bind_topic(topic_id, sid):
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO student_user_relation (name, username) VALUES (?, ?)", (topic_id, sid))
+    cursor.execute("INSERT INTO student_user_relation (topic_id, user_id) VALUES (?, ?)", (topic_id, sid))
     conn.commit()
     conn.close()
+
+
+def topic_status_up():
+    i = "qqq"
+
+
+def topic_status_is():
+    i = "qqqq"

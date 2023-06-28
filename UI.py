@@ -124,7 +124,7 @@ def ad_main():
 
 def us_main():
     layout = [
-        [sg.Text('           欢迎使用毕业选题管理系统          ')],
+        [sg.Text('           欢迎使用毕业选题管理系统后门程序          ')],
         [sg.Button('绑定学生'), sg.Button('绑定课题')],
         [sg.Button('更新学生信息'), sg.Button('更新课题信息')],
         [sg.Button('论文状态提交'), sg.Button('论文状态修改')],
@@ -159,3 +159,50 @@ def us_main():
 
     window.close()
     main()
+
+
+def test_main():
+    # 检查数据库文件是否存在，如果不存在则创建表
+    if not os.path.isfile('graduation_topics.db'):
+        create_tables()
+    layout = [
+        [sg.Text('           欢迎使用毕业选题管理系统          ')],
+        [sg.Button('绑定学生'), sg.Button('绑定课题')],
+        [sg.Button('更新学生信息'), sg.Button('更新课题信息')],
+        [sg.Button('论文状态提交'), sg.Button('论文状态修改')],
+        [sg.Button('查询学生信息'), sg.Button('查询课题信息')],
+        [sg.Button('添加学生'), sg.Button('添加课题')],
+        [sg.Button('保存数据'), sg.Button('退出登录'),sg.Button('导入测试数据')]
+    ]
+    window = sg.Window('登录毕业选题管理系统', layout)
+    while True:
+        event, values = window.read()
+        if event == sg.WIN_CLOSED or event == "取消":
+            break
+        elif event == '绑定学生':
+            bind_student_info()
+        elif event == '绑定课题':
+            bind_topic_info()
+        elif event == '更新学生信息':
+            update_student_info()
+        elif event == '更新课题信息':
+            update_topic_info()
+        elif event == '删除学生信息':
+            delete_student_info()
+        elif event == '删除课题信息':
+            delete_topic_info()
+        elif event == '查询学生信息':
+            query_student_info()
+        elif event == '查询课题信息':
+            query_topic_info()
+        elif event == "导入测试数据":
+            test_data()
+            sg.popup('数据导入成功')
+        elif event == '添加学生':
+            input_student_info()
+        elif event == '添加课题':
+            input_topic_info()
+        elif event == '论文状态提交':
+            sg.popup("没写完")
+        elif event == '论文状态修改':
+            sg.popup("没写完")

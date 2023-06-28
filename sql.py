@@ -19,7 +19,7 @@ def create_tables():
         major TEXT NOT NULL,
         year INTEGER DEFAULT 2023,
         six INTEGER DEFAULT 0,
-        title_id INTEGER,
+        title_id INTEGER DEFAULT NULL,
         state INTEGER DEFAULT 0,
         FOREIGN KEY (title_id) REFERENCES thesis_topics (tid)
     )
