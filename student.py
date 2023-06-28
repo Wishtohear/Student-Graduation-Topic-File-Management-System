@@ -27,8 +27,8 @@ def update_student(student_id, name, major, year, six):
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
     cursor.execute(
-        "UPDATE students SET name=?, major=?, year=? WHERE id=?, six=?"
-        , (name, major, year, student_id, six_number))
+        "UPDATE students SET name=?, major=?, year=?, six=? WHERE sid=?"
+        , (name, major, year, six_number, student_id))
     conn.commit()
     conn.close()
 

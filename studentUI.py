@@ -104,14 +104,26 @@ def query_student_info():
     students = get_all_students()
     if students:
         layout = [
-            [sg.Text('ID\t姓名\t专业\t毕业年份\t性别\t课题ID\t课题状态')],
-            [sg.Multiline('\n'.join([
-                f'{s[0]}\t{s[1]}\t{s[2]}\t'
-                f'{s[3]}\t{"女" if s[3] == 0 else "男"}\t'
-                f'{s[4]}\t'
-                f'{s[5]}\t{"未提交" if s[5] == 0 else "已做完" if s[5] == 1 else "在修改" if s[5] == 2 else "已完成"}'
-                for s in students]), size=(50, 10),
-                disabled=True)],
+            [
+                sg.Text('ID', pad=(15, 0)),
+                sg.Text('姓名', pad=(15, 0)),
+                sg.Text('专业', pad=(17, 0)),
+                sg.Text('毕业年份', pad=(10, 0)),
+                sg.Text('性别'),
+                sg.Text('课题ID', pad=(15, 0)),
+                sg.Text('课题状态', pad=(15, 0))
+            ],
+            [
+                sg.Multiline('\n'.join(
+                    [
+                        f'{s[0]}\t{s[1]}\t{s[2]}\t{s[3]}'
+                        f'\t{"男" if s[4] == 0 else "女"}\t{s[4]}'
+                        f'\t{"未绑定" if s[5] is None else s[5]}'
+                        f'{s[6]}\t{"未提交" if s[6] == 0 else "已做完" if s[6] == 1 else "在修改" if s[6] == 2 else "已完成"}'
+                        for s in students
+                    ]
+                ), size=(70, 10),
+                    disabled=True)],
             [sg.Button('看完了')]
         ]
         window = sg.Window('学生信息', layout)

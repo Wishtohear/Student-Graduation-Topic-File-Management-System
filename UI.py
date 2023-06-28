@@ -4,7 +4,8 @@ import os.path
 from sql import create_tables, export_data_to_csv, test_data
 from studentUI import input_student_info, query_student_info, bind_student_info, update_student_info, \
     delete_student_info
-from topicUI import input_topic_info, update_topic_info, delete_topic_info, bind_topic_info, query_topic_info
+from topicUI import input_topic_info, update_topic_info, delete_topic_info, bind_topic_info, query_topic_info, \
+    topic_status_up_info, topic_status_is_info
 from user import register_user, register_admin, validate_user
 
 
@@ -203,6 +204,6 @@ def test_main():
         elif event == '添加课题':
             input_topic_info()
         elif event == '论文状态提交':
-            sg.popup("没写完")
+            topic_status_up_info()
         elif event == '论文状态修改':
-            sg.popup("没写完")
+            topic_status_is_info()

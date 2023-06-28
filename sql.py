@@ -51,11 +51,13 @@ def create_tables():
     name TEXT,
     username TEXT,
     topic_id TEXT,
+    topic_status TEXT,
     FOREIGN KEY (student_id) REFERENCES students (sid),
     FOREIGN KEY (username) REFERENCES users (username),
     FOREIGN KEY (name) REFERENCES students (name),
     FOREIGN KEY (user_id) REFERENCES users (userid),
-    FOREIGN KEY (topic_id) REFERENCES topics (tid)
+    FOREIGN KEY (topic_id) REFERENCES topics (tid),
+    FOREIGN KEY (topic_status) REFERENCES students (state)
     )''')
     # 初始一个超级管理员
     cursor.execute("INSERT INTO users (username, password, userid) VALUES ('admin', 'admin123', 0)")

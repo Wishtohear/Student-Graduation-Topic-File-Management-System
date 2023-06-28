@@ -1,6 +1,6 @@
 import PySimpleGUI as sg  # GUI库，pip安装一下
 
-from topic import insert_topic, update_topic, delete_topic, bind_topic, get_all_topics
+from topic import insert_topic, update_topic, delete_topic, bind_topic, get_all_topics, topic_status_up, topic_status_is
 
 
 def input_topic_info():
@@ -97,3 +97,45 @@ def query_topic_info():
         window.close()
     else:
         sg.popup('没有选题信息.')
+
+
+def topic_status_up_info():
+    layout = [
+        [sg.Text('学生id:'), sg.InputText(size=(17, 1))],
+        [sg.Text('课题id:'), sg.InputText(size=(17, 1))],
+        [sg.Button('确定'), sg.Button('退出')]
+    ]
+    window = sg.Window('输入信息', layout)
+    while True:
+        event, values = window.read()
+        if event == sg.WIN_CLOSED or event == '退出':
+            break
+        elif event == '确定':
+            topic_status_up(values[0], values[1])
+            sg.popup('课题状态更新成功.')
+            break
+    window.close()
+
+
+def topic_status_is_info():
+    layout = [
+        [sg.Text('学生id:'), sg.InputText(size=(17, 1))],
+        [sg.Text('课题id:'), sg.InputText(size=(17, 1))],
+        [sg.Radio('未提交', 'status', default=True, key='0'),
+         sg.Radio('已提交', 'status', key='1'),
+         sg.Radio('已完成', 'status', key='2'),
+         sg.Radio('在修改', 'status', key='3')],
+        [sg.Button('确定'), sg.Button('退出')]
+    ]
+    window = sg.Window('输入信息', layout)
+    while True:
+        event, values = window.read()
+        if event == sg.WIN_CLOSED or event == '退出':
+            break
+        elif event == '确定':
+            status = int(values[2]) + int(values[3]) * 2 + int(values[4]) * 3 + int(values[5]) * 4
+            sg.popup('您选择的状态值是：', status)
+            topic_status_is(values[0], values[1], status)
+            sg.popup('课题状态更新成功')
+            break
+    window.close()

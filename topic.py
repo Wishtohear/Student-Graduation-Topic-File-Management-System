@@ -17,8 +17,8 @@ def insert_topic(title, description, student_id, teacher):
 def update_topic(topic_id, title, description, student_id, teacher):
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
-    cursor.execute("UPDATE topics SET title_name=?, description=?, student_id=? topic_id=?, teacher=?",
-                   (title, description, student_id, topic_id, teacher))
+    cursor.execute("UPDATE topics SET title_name=?, description=?, student_id=?, teacher=? WHERE tid=?",
+                   (title, description, student_id, teacher, topic_id))
     conn.commit()
     conn.close()
 
@@ -46,14 +46,28 @@ def get_all_topics():
 def bind_topic(topic_id, sid):
     conn = sqlite3.connect('graduation_topics.db')
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO student_user_relation (topic_id, user_id) VALUES (?, ?)", (topic_id, sid))
+    cursor.execute("UPDATE students SET title_id=?, WHERE sid=?",
+                   (topic_id, sid))
     conn.commit()
     conn.close()
 
 
-def topic_status_up():
-    i = "qqq"
+def topic_status_up(topic_id, sid):
+    status = 2
+    conn = sqlite3.connect('graduation_topics.db')
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT INTO student_user_relation (topic_id, student_id, topic_status) VALUES (?, ?, ?)",
+        (topic_id, sid, status))
+    conn.commit()
+    conn.close()
 
 
-def topic_status_is():
-    i = "qqqq"
+def topic_status_is(topic_id, sid, status):
+    conn = sqlite3.connect('graduation_topics.db')
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT INTO student_user_relation (topic_id, student_id, topic_status) VALUES (?, ?, ?)",
+        (topic_id, sid, status))
+    conn.commit()
+    conn.close()
